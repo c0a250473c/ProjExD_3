@@ -156,7 +156,7 @@ class Score:
         現在のスコアをSurfaceで生成し、スクリーンに描画
         """
         self.img = self.fonto.render(f"Score: {self.score}", 0, self.color)
-        screen.blit(self.img, self.rct)
+        screen.blit(self.img, self.rct)  # rct
 
 def main():
     pg.display.set_caption("たたかえ！こうかとん")
