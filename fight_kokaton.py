@@ -200,8 +200,7 @@ def main():
                     score.score += 1 #表示させるスコア+1
                     beam = None
                     bombs[i] = None
-                    bird.change_img(6, screen)  # よろこびエフェクト
-                    pg.display.update()                    
+                    bird.change_img(6, screen)  # よろこびエフェクト            
         bombs = [bomb for bomb in bombs if bomb is not None]  # Noneを取り除く
 
         key_lst = pg.key.get_pressed()
