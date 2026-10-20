@@ -203,7 +203,9 @@ def main():
                         beams[i] = None
                         bombs[j] = None
                         bird.change_img(6, screen)  # よろこびエフェクト
-                        pg.display.update()                    
+                        pg.display.update()    
+                                  
+        beam = Beam() #インスタンス生成
         bombs = [bomb for bomb in bombs if bomb is not None and check_bound(beam.rct) == (True, True)] # Noneを取り除く
         bombs = [bomb for bomb in bombs if bomb is not None]
         for beam in beams:
