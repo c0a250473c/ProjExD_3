@@ -140,6 +140,23 @@ class Bomb:
         self.rct.move_ip(self.vx, self.vy)
         screen.blit(self.img, self.rct)
 
+class Score:
+    """
+    撃ち落とした爆弾の数を表記するクラス
+    """
+    def __init__(self):
+        self.fonto = pg.font.Font(None, 50)
+        self.color = (0, 0, 255)
+        self.score = 0
+        self.img = self.fonto.render(f"Score: {self.score}", 0, self.color)
+        self.rct = self.img.get_rect()
+        self.rct.center = (100, HEIGHT-50)
+    def update(self, screen: pg.Surface):
+        """
+        現在のスコアをSurfaceで生成し、スクリーンに描画
+        """
+        self.img = self.fonto.render(f"Score: {self.score}", 0, self.color)
+        screen.blit(self.img, self.rct)
 
 def main():
     pg.display.set_caption("たたかえ！こうかとん")
@@ -154,6 +171,9 @@ def main():
     beam = None  # ゲーム初期化時にはビームは存在しない
     clock = pg.time.Clock()
     tmr = 0
+    
+    score = Score() #インスタンスの生成
+    
     while True:
         for event in pg.event.get():
             if event.type == pg.QUIT:
@@ -177,6 +197,7 @@ def main():
         for i, bomb in enumerate(bombs):
             if beam is not None:
                 if beam.rct.colliderect(bomb.rct):  # ビームと爆弾の衝突判定
+                    score.score += 1 #表示させるスコア+1
                     beam = None
                     bombs[i] = None
                     bird.change_img(6, screen)  # よろこびエフェクト
@@ -189,6 +210,7 @@ def main():
             beam.update(screen)  
         for bomb in bombs: 
             bomb.update(screen)
+        score.update(screen) #左下スコアの表示
         pg.display.update()
         tmr += 1
         clock.tick(50)
